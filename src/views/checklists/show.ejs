@@ -1,0 +1,33 @@
+<%- include('../layouts/header', {title: checklist.name}) %>
+
+    <%- include('../layouts/menu') %>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-four-fifths">
+                        <h1 class="title size-4">
+                            <%= checklist.name %>
+                        </h1>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <a href="/checklists/<%= checklist._id %>/tasks/new" class="button is-success is-small">Nova Tarefa</a>
+                        <a href="/checklists" class="button is-small">Voltar</a>
+                    </div>
+                </div>
+
+                <hr />
+
+                <% checklist.tasks.forEach(task=>{%>
+                    <div class="columns">
+                        <div class="column is-four-fifths <%= task.done ? 'has-text-success is-italic' : ''%>">
+                            <input type="checkbox" onchange="setTagAsDone(this,'<%= task._id%>')" <%= task.done ? 'checked' : ''%>/> <%= task.name %>
+                        </div>
+
+                        <div class="column is-one-fifth">
+                            <a href="/tasks/<%= task._id%>?_method=delete" class="button is-danger is-small">Remover</a>
+                        </div>
+                    </div>
+                <%})%>    
+            </div>
+        </section>
+        <%- include('../layouts/footer') %>
